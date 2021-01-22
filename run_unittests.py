@@ -2554,6 +2554,7 @@ class AllPlatformTests(BasePlatformTests):
         intel = mesonbuild.compilers.IntelGnuLikeCompiler
         msvc = (mesonbuild.compilers.VisualStudioCCompiler, mesonbuild.compilers.VisualStudioCPPCompiler)
         clangcl = (mesonbuild.compilers.ClangClCCompiler, mesonbuild.compilers.ClangClCPPCompiler)
+        tcc = mesonbuild.compilers.TCCCCompiler
         ar = mesonbuild.linkers.ArLinker
         lib = mesonbuild.linkers.VisualStudioLinker
         langs = [('c', 'CC'), ('cpp', 'CXX')]
@@ -2580,6 +2581,9 @@ class AllPlatformTests(BasePlatformTests):
                     self.assertIsInstance(elinker, lib)
                 elif 'clang' in ebase:
                     self.assertIsInstance(ecc, clang)
+                    self.assertIsInstance(elinker, ar)
+                elif ebase == 'tcc':
+                    self.assertIsInstance(ecc, tcc)
                     self.assertIsInstance(elinker, ar)
                 elif ebase.startswith('ic'):
                     self.assertIsInstance(ecc, intel)
@@ -4954,6 +4958,8 @@ class AllPlatformTests(BasePlatformTests):
                 raise unittest.SkipTest('llvm-cov not found')
         if cc.get_id() == 'msvc':
             raise unittest.SkipTest('Test only applies to non-MSVC compilers')
+        if cc.get_id() == 'tcc':
+            raise unittest.SkipTest('Test only applies to non-TinyC compilers')
         self.init(testdir, extra_args=['-Db_coverage=true'])
         self.build()
         self.run_tests()
@@ -4974,6 +4980,8 @@ class AllPlatformTests(BasePlatformTests):
                 raise unittest.SkipTest('llvm-cov not found')
         if cc.get_id() == 'msvc':
             raise unittest.SkipTest('Test only applies to non-MSVC compilers')
+        if cc.get_id() == 'tcc':
+            raise unittest.SkipTest('Test only applies to non-TinyC compilers')
         self.init(testdir, extra_args=['-Db_coverage=true'])
         self.build()
         self.run_tests()
@@ -4994,6 +5002,8 @@ class AllPlatformTests(BasePlatformTests):
                 raise unittest.SkipTest('llvm-cov not found')
         if cc.get_id() == 'msvc':
             raise unittest.SkipTest('Test only applies to non-MSVC compilers')
+        if cc.get_id() == 'tcc':
+            raise unittest.SkipTest('Test only applies to non-TinyC compilers')
         self.init(testdir, extra_args=['-Db_coverage=true'])
         self.build()
         self.run_tests()
@@ -5014,6 +5024,8 @@ class AllPlatformTests(BasePlatformTests):
                 raise unittest.SkipTest('llvm-cov not found')
         if cc.get_id() == 'msvc':
             raise unittest.SkipTest('Test only applies to non-MSVC compilers')
+        if cc.get_id() == 'tcc':
+            raise unittest.SkipTest('Test only applies to non-TinyC compilers')
         self.init(testdir, extra_args=['-Db_coverage=true'])
         self.build()
         self.run_tests()
@@ -5034,6 +5046,8 @@ class AllPlatformTests(BasePlatformTests):
                 raise unittest.SkipTest('llvm-cov not found')
         if cc.get_id() == 'msvc':
             raise unittest.SkipTest('Test only applies to non-MSVC compilers')
+        if cc.get_id() == 'tcc':
+            raise unittest.SkipTest('Test only applies to non-TinyC compilers')
         self.init(testdir, extra_args=['-Db_coverage=true'])
         self.build()
         self.run_tests()

@@ -67,6 +67,7 @@ from .linkers import (
     CudaLinker,
     VisualStudioLikeLinkerMixin,
     WASMDynamicLinker,
+    TCCDynamicLinker,
 )
 from functools import lru_cache
 from .compilers import (
@@ -126,6 +127,7 @@ from .compilers import (
     ValaCompiler,
     VisualStudioCCompiler,
     VisualStudioCPPCompiler,
+    TCCCCompiler,
 )
 from mesonbuild import envconfig
 
@@ -1450,6 +1452,13 @@ class Environment:
                     ccache + compiler, version, for_machine, is_cross, info,
                     exe_wrap, full_version=full_version, linker=linker)
 
+            if 'tcc ' in out and lang == 'c':
+                cls = TCCCCompiler
+                self.coredata.add_lang_args(cls.language, cls, for_machine, self)
+                linker = TCCDynamicLinker(for_machine, version=version)
+                return cls(
+                    ccache + compiler, version, for_machine, is_cross, info,
+                    exe_wrap, full_version=full_version, linker=linker)
 
         self._handle_exceptions(popen_exceptions, compilers)
 

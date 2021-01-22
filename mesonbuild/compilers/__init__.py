@@ -106,6 +106,7 @@ __all__ = [
     'VisualStudioLikeCompiler',
     'VisualStudioCCompiler',
     'VisualStudioCPPCompiler',
+    'TCCCCompiler',
 ]
 
 # Bring symbols from each module into compilers sub-package namespace
@@ -149,6 +150,7 @@ from .c import (
     CompCertCCompiler,
     C2000CCompiler,
     VisualStudioCCompiler,
+    TCCCCompiler,
 )
 from .cpp import (
     CPPCompiler,
