@@ -712,6 +712,8 @@ class C2000CCompiler(C2000Compiler, CCompiler):
         return ['--include_path=' + path]
 
 class TCCCCompiler(CCompiler):
+    LINKER_PREFIX = '-Wl,'
+
     def __init__(self, exelist: T.List[str], version: str, for_machine: MachineChoice,
                  is_cross: bool, info: 'MachineInfo',
                  exe_wrapper: T.Optional['ExternalProgram'] = None,

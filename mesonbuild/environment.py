@@ -1455,7 +1455,7 @@ class Environment:
             if 'tcc ' in out and lang == 'c':
                 cls = TCCCCompiler
                 self.coredata.add_lang_args(cls.language, cls, for_machine, self)
-                linker = TCCDynamicLinker(for_machine, version=version)
+                linker = TCCDynamicLinker(compiler, for_machine, cls.LINKER_PREFIX, [], version=version)
                 return cls(
                     ccache + compiler, version, for_machine, is_cross, info,
                     exe_wrap, full_version=full_version, linker=linker)

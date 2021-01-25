@@ -1377,11 +1377,6 @@ class TCCDynamicLinker(PosixDynamicLinkerMixin, DynamicLinker):
     """Linker for TCC compiler."""
     id = 'tcc'
 
-    def __init__(self, for_machine: mesonlib.MachineChoice,
-                 *, version: str = 'unknown version'):
-        super().__init__(['tcc'], for_machine, '-Wl,', [],
-                         version=version)
-
     def get_allow_undefined_args(self) -> T.List[str]:
         return []
 

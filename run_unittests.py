@@ -5973,6 +5973,7 @@ class LinuxlikeTests(BasePlatformTests):
         soname = get_soname(lib1)
         self.assertEqual(soname, 'prefixsomelib.suffix')
 
+    @skip_if_not_base_option('b_pic')
     def test_pic(self):
         '''
         Test that -fPIC is correctly added to static libraries when b_staticpic
@@ -6333,6 +6334,11 @@ class LinuxlikeTests(BasePlatformTests):
                 print(f'{key!s} was {v!r}')
                 raise
             self.wipe()
+        # TCC won't fail if wrong -std=... values are passed to it, it will
+        # just ignore them
+        if compiler.get_id() == 'tcc':
+            return
+
         # Check that an invalid std option in CFLAGS/CPPFLAGS fails
         # Needed because by default ICC ignores invalid options
         cmd_std = '-std=FAIL'
@@ -6823,6 +6829,7 @@ class LinuxlikeTests(BasePlatformTests):
         self.meson_cross_file = crossfile.name
         self.init(testdir)
 
+    @skip_if_not_base_option('b_coverage')
     def test_reconfigure(self):
         testdir = os.path.join(self.unit_test_dir, '13 reconfigure')
         self.init(testdir, extra_args=['-Db_coverage=true'], default_args=False)
@@ -7434,6 +7441,8 @@ class LinuxlikeTests(BasePlatformTests):
             raise unittest.SkipTest('Prelinking not supported on Darwin.')
         if 'clang' in os.environ.get('CC', 'dummy'):
             raise unittest.SkipTest('Prelinking not supported with Clang.')
+        if 'tcc' in os.environ.get('CC', 'dummy'):
+            raise unittest.SkipTest('Prelinking not supported with TCC.')
         gccver = subprocess.check_output(['cc', '--version'])
         if b'7.5.0' in gccver:
             raise unittest.SkipTest('GCC on Bionic is too old to be supported.')
