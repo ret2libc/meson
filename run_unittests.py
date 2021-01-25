@@ -5973,7 +5973,7 @@ class LinuxlikeTests(BasePlatformTests):
         soname = get_soname(lib1)
         self.assertEqual(soname, 'prefixsomelib.suffix')
 
-    @skip_if_not_base_option('b_pic')
+    @skip_if_not_base_option('b_pie')
     def test_pic(self):
         '''
         Test that -fPIC is correctly added to static libraries when b_staticpic
