@@ -1228,6 +1228,8 @@ class Environment:
                 arg = '-version'
             elif 'cl2000' in compiler_name:
                 arg = '-version'
+            elif 'tcc' in compiler_name:
+                arg = '-version'
             elif compiler_name in {'icl', 'icl.exe'}:
                 # if you pass anything to icl you get stuck in a pager
                 arg = ''
