@@ -1429,10 +1429,6 @@ class TCCDynamicLinker(PosixDynamicLinkerMixin, DynamicLinker):
                 paths = paths + ':' + padding
         args.extend(self._apply_prefix('-rpath,' + paths))
 
-        # TODO: should this actually be "for solaris/sunos"?
-        if mesonlib.is_sunos():
-            return (args, rpath_dirs_to_remove)
-
         for p in rpath_paths:
             args.extend(['-L' + os.path.join(build_dir, p)])
 
