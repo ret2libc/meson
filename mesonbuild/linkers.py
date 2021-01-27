@@ -1381,7 +1381,7 @@ class TCCDynamicLinker(PosixDynamicLinkerMixin, DynamicLinker):
         return []
 
     def get_pic_args(self) -> T.List[str]:
-        return []
+        raise mesonlib.MesonException('This linker does not support PIC')
 
     def get_link_whole_for(self, args: T.List[str]) -> T.List[str]:
         if not args:
