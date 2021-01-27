@@ -742,8 +742,19 @@ class TCCCCompiler(CCompiler):
             args.append('-std=' + std.value)
         return args
 
+    def get_dependency_gen_args(self, outtarget: str, outfile: str) -> T.List[str]:
+        return ['-MD', '-MF', outfile]
+
     def get_optimization_args(self, optimization_level: str) -> T.List[str]:
-        return []
+        optimization_args = {
+            '0': [],
+            'g': ['-O0', '-g'],
+            '1': ['-O1'],
+            '2': ['-O2'],
+            '3': ['-O3'],
+            's': ['-Os'],
+        }  # type: T.Dict[str, T.List[str]]
+        return optimization_args[optimization_level]
 
     def get_no_optimization_args(self) -> T.List[str]:
         return []
